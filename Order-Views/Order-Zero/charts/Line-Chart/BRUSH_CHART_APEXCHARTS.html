@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brush Chart using ApexCharts</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="chart1"></div>
+        <div id="chart2"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var options1 = {
+                chart: {
+                    id: 'chart1',
+                    type: 'line',
+                    height: 350,
+                    width: '100%',
+                    toolbar: {
+                        autoSelected: 'pan',
+                        show: false
+                    },
+                    zoom: {
+                        type: 'x',
+                        enabled: false
+                    }
+                },
+                series: [{
+                    name: 'Sales',
+                    data: [
+                        [new Date('2023-01-01').getTime(), 30],
+                        [new Date('2023-02-01').getTime(), 40],
+                        [new Date('2023-03-01').getTime(), 35],
+                        [new Date('2023-04-01').getTime(), 50],
+                        [new Date('2023-05-01').getTime(), 49],
+                        [new Date('2023-06-01').getTime(), 60],
+                        [new Date('2023-07-01').getTime(), 70],
+                        [new Date('2023-08-01').getTime(), 91],
+                        [new Date('2023-09-01').getTime(), 125]
+                    ]
+                }],
+                xaxis: {
+                    type: 'datetime'
+                }
+            };
+
+            var options2 = {
+                chart: {
+                    id: 'chart2',
+                    height: 130,
+                    type: 'area',
+                    brush: {
+                        target: 'chart1',
+                        enabled: true
+                    },
+                    selection: {
+                        enabled: true,
+                        xaxis: {
+                            min: new Date('2023-03-01').getTime(),
+                            max: new Date('2023-08-01').getTime()
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Sales',
+                    data: [
+                        [new Date('2023-01-01').getTime(), 30],
+                        [new Date('2023-02-01').getTime(), 40],
+                        [new Date('2023-03-01').getTime(), 35],
+                        [new Date('2023-04-01').getTime(), 50],
+                        [new Date('2023-05-01').getTime(), 49],
+                        [new Date('2023-06-01').getTime(), 60],
+                        [new Date('2023-07-01').getTime(), 70],
+                        [new Date('2023-08-01').getTime(), 91],
+                        [new Date('2023-09-01').getTime(), 125]
+                    ]
+                }],
+                stroke: {
+                    width: 1
+                },
+                xaxis: {
+                    type: 'datetime',
+                    tooltip: {
+                        enabled: false
+                    }
+                },
+                yaxis: {
+                    tickAmount: 2
+                }
+            };
+
+            var chart1 = new ApexCharts(document.querySelector("#chart1"), options1);
+            var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
+
+            chart1.render();
+            chart2.render();
+        });
+    </script>
+</body>
+</html>

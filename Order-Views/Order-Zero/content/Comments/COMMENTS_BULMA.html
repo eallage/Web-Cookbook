@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comments Section</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <style>
+        :root {
+            --background-color: #ffffff;
+            --text-color: #363636;
+            --header-background: #f2f2f2;
+            --header-text: #000000;
+            --link-color: #3273dc;
+            --comment-bg: #f5f5f5;
+            --comment-text: #363636;
+            --reply-bg: #ffffff;
+            --reply-text: #363636;
+        }
+
+        [data-theme="dark"] {
+            --background-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --header-background: #333333;
+            --header-text: #ffffff;
+            --link-color: #4a90e2;
+            --comment-bg: #2a2a2a;
+            --comment-text: #e0e0e0;
+            --reply-bg: #333333;
+            --reply-text: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .navbar {
+            background-color: var(--header-background);
+            color: var(--header-text);
+        }
+
+        .comment, .reply {
+            background-color: var(--comment-bg);
+            color: var(--comment-text);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .reply {
+            background-color: var(--reply-bg);
+            color: var(--reply-text);
+            margin-left: 2rem;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            background-color: var(--link-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin: 1rem;
+        }
+
+        .content {
+            margin-top: 20px;
+        }
+
+        .input-container {
+            margin-top: 1rem;
+        }
+
+        .input-container textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--reply-bg);
+            color: var(--reply-text);
+            border: 1px solid var(--header-text);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-container button {
+            background-color: var(--link-color);
+            color: var(--background-color);
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">
+                <strong>Comments Section</strong>
+            </a>
+            <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <div class="content">
+                <h2>Comments</h2>
+
+                <div id="comments">
+                    <div class="comment" id="comment-1">
+                        <p><strong>User1:</strong> This is the first comment.</p>
+                        <div class="input-container">
+                            <textarea placeholder="Reply to this comment..." id="reply-1"></textarea>
+                            <button onclick="addReply(1)">Reply</button>
+                        </div>
+                        <div class="replies" id="replies-1"></div>
+                    </div>
+
+                    <div class="comment" id="comment-2">
+                        <p><strong>User2:</strong> This is the second comment.</p>
+                        <div class="input-container">
+                            <textarea placeholder="Reply to this comment..." id="reply-2"></textarea>
+                            <button onclick="addReply(2)">Reply</button>
+                        </div>
+                        <div class="replies" id="replies-2"></div>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <textarea placeholder="Add a comment..." id="newComment"></textarea>
+                    <button onclick="addComment()">Add Comment</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute("data-theme");
+            const newTheme = currentTheme === "light" ? "dark" : "light";
+            document.documentElement.setAttribute("data-theme", newTheme);
+        }
+
+        function addReply(commentId) {
+            const replyText = document.getElementById('reply-' + commentId).value.trim();
+            if (replyText !== "") {
+                const repliesContainer = document.getElementById('replies-' + commentId);
+
+                const replyElement = document.createElement('div');
+                replyElement.className = 'reply';
+                replyElement.textContent = replyText;
+
+                repliesContainer.appendChild(replyElement);
+                document.getElementById('reply-' + commentId).value = '';
+            }
+        }
+
+        function addComment() {
+            const commentText = document.getElementById('newComment').value.trim();
+            if (commentText !== "") {
+                const commentsContainer = document.getElementById('comments');
+
+                const commentId = 'comment-' + (commentsContainer.children.length + 1);
+                const commentElement = document.createElement('div');
+                commentElement.className = 'comment';
+                commentElement.id = commentId;
+                commentElement.innerHTML = `
+                    <p><strong>User:</strong> ${commentText}</p>
+                    <div class="input-container">
+                        <textarea placeholder="Reply to this comment..." id="reply-${commentId}"></textarea>
+                        <button onclick="addReply('${commentId}')">Reply</button>
+                    </div>
+                    <div class="replies" id="replies-${commentId}"></div>
+                `;
+
+                commentsContainer.appendChild(commentElement);
+                document.getElementById('newComment').value = '';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grouped Stacked Column Chart from ApexCharts</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div id="chart"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var options = {
+                series: [
+                    {
+                        name: 'Q1 Budget',
+                        group: 'budget',
+                        data: [44000, 55000, 41000, 67000, 22000, 43000]
+                    },
+                    {
+                        name: 'Q1 Actual',
+                        group: 'actual',
+                        data: [48000, 50000, 40000, 65000, 25000, 40000]
+                    },
+                    {
+                        name: 'Q2 Budget',
+                        group: 'budget',
+                        data: [13000, 36000, 20000, 8000, 13000, 27000]
+                    },
+                    {
+                        name: 'Q2 Actual',
+                        group: 'actual',
+                        data: [20000, 40000, 25000, 10000, 12000, 28000]
+                    }
+                ],
+                chart: {
+                    type: 'bar',
+                    height: 350,
+                    stacked: true,
+                },
+                stroke: {
+                    width: 1,
+                    colors: ['#fff']
+                },
+                dataLabels: {
+                    formatter: function(val) {
+                        return (val / 1000).toFixed(1) + 'K';
+                    }
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '20%',
+                    }
+                },
+                xaxis: {
+                    categories: [
+                        'Online advertising',
+                        'Sales Training',
+                        'Print advertising',
+                        'Catalogs',
+                        'Meetings',
+                        'Public relations'
+                    ],
+                    labels: {
+                        style: {
+                            fontSize: '12px'
+                        }
+                    }
+                },
+                fill: {
+                    opacity: 1
+                },
+                colors: ['#80c7fd', '#008FFB', '#80f1cb', '#00E396'],
+                yaxis: {
+                    labels: {
+                        formatter: function(val) {
+                            return (val / 1000).toFixed(1) + 'K';
+                        }
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'left'
+                }
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        });
+    </script>
+</body>
+</html>

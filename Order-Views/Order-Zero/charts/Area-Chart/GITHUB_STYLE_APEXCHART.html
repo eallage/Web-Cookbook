@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brushed Area Chart using ApexCharts</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="chart-months"></div>
+        <div id="chart-years"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Sample data
+            var githubdata = {
+                series: generateData()
+            };
+
+            // Initial options for the main area chart
+            var options = {
+                series: [{
+                    name: 'commits',
+                    data: githubdata.series
+                }],
+                chart: {
+                    id: 'chartyear',
+                    type: 'area',
+                    height: 160,
+                    background: '#F6F8FA',
+                    toolbar: {
+                        show: false,
+                        autoSelected: 'pan'
+                    },
+                    events: {
+                        mounted: function (chart) {
+                            var commitsEl = document.querySelector('.cmeta span.commits');
+                            var commits = chart.getSeriesTotalXRange(chart.w.globals.minX, chart.w.globals.maxX);
+                            commitsEl.innerHTML = commits;
+                        },
+                        updated: function (chart) {
+                            var commitsEl = document.querySelector('.cmeta span.commits');
+                            var commits = chart.getSeriesTotalXRange(chart.w.globals.minX, chart.w.globals.maxX);
+                            commitsEl.innerHTML = commits;
+                        }
+                    }
+                },
+                colors: ['#FF7F00'],
+                stroke: {
+                    width: 0,
+                    curve: 'monotoneCubic'
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                fill: {
+                    opacity: 1,
+                    type: 'solid'
+                },
+                yaxis: {
+                    show: true
+                },
+                xaxis: {
+                    type: 'datetime'
+                }
+            };
+
+            // Options for the brushed area chart with selection
+            var optionsYears = {
+                series: [{
+                    name: 'commits',
+                    data: githubdata.series
+                }],
+                chart: {
+                    height: 200,
+                    type: 'area',
+                    background: '#F6F8FA',
+                    toolbar: {
+                        autoSelected: 'selection',
+                    },
+                    brush: {
+                        enabled: true,
+                        target: 'chartyear'
+                    },
+                    selection: {
+                        enabled: true,
+                        xaxis: {
+                            min: new Date('26 Jan 2014').getTime(),
+                            max: new Date('29 Mar 2015').getTime()
+                        }
+                    },
+                },
+                colors: ['#7BD39A'],
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    width: 0,
+                    curve: 'monotoneCubic'
+                },
+                fill: {
+                    opacity: 1,
+                    type: 'solid'
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'left'
+                },
+                xaxis: {
+                    type: 'datetime'
+                }
+            };
+
+            // Function to generate random data
+            function generateData() {
+                var data = [];
+                var baseval = Math.floor(Math.random() * 100);
+                for (var i = 0; i < 100; i++) {
+                    var x = new Date().getTime() - (1000 * 3600 * 24 * i);
+                    var y = Math.floor(Math.random() * 100) + baseval;
+                    data.push([x, y]);
+                }
+                return data.reverse();
+            }
+
+            // Render the main area chart
+            var chart = new ApexCharts(document.querySelector("#chart-months"), options);
+            chart.render();
+
+            // Render the brushed area chart with selection
+            var chartYears = new ApexCharts(document.querySelector("#chart-years"), optionsYears);
+            chartYears.render();
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irregular Time Series Area Chart with Discontinuities using ApexCharts</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment/moment.min.js"></script> <!-- Moment.js for date formatting -->
+</head>
+<body>
+    <div id="chart"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Sample dataset with discontinuities (replace with your actual data)
+            // Sample data (replace with your actual data)
+var dataSet = [
+    [
+        [new Date("01/01/2014").getTime(), 2000000],
+        [new Date("01/02/2014").getTime(), 2200000],
+        [new Date("01/03/2014").getTime(), 2500000],
+        [new Date("01/04/2014").getTime(), 2300000],
+        [new Date("01/07/2014").getTime(), 2700000],
+        [new Date("01/10/2014").getTime(), 3000000],
+        [new Date("01/15/2014").getTime(), 2800000],
+        [new Date("01/20/2014").getTime(), 3200000],
+        [new Date("01/21/2014").getTime(), 3100000],
+        [new Date("01/22/2014").getTime(), 3300000]
+    ],
+    [
+        [new Date("01/01/2014").getTime(), 1800000],
+        [new Date("01/05/2014").getTime(), 2100000],
+        [new Date("01/08/2014").getTime(), 1900000],
+        [new Date("01/10/2014").getTime(), 2200000],
+        [new Date("01/11/2014").getTime(), 2300000],
+        [new Date("01/12/2014").getTime(), 2400000],
+        [new Date("01/14/2014").getTime(), 2600000],
+        [new Date("01/17/2014").getTime(), 2500000],
+        [new Date("01/18/2014").getTime(), 2700000],
+        [new Date("01/19/2014").getTime(), 2600000]
+    ],
+    [
+        [new Date("01/01/2014").getTime(), 1500000],
+        [new Date("01/03/2014").getTime(), 1600000],
+        [new Date("01/06/2014").getTime(), 1800000],
+        [new Date("01/09/2014").getTime(), 2000000],
+        [new Date("01/11/2014").getTime(), 2100000],
+        [new Date("01/13/2014").getTime(), 1900000],
+        [new Date("01/16/2014").getTime(), 2200000],
+        [new Date("01/18/2014").getTime(), 2300000],
+        [new Date("01/20/2014").getTime(), 2400000],
+        [new Date("01/22/2014").getTime(), 2500000]
+    ]
+];
+
+var options = {
+    series: [
+        { name: 'PRODUCT A', data: dataSet[0] },
+        { name: 'PRODUCT B', data: dataSet[1] },
+        { name: 'PRODUCT C', data: dataSet[2] }
+    ],
+    chart: {
+        type: 'area',
+        stacked: false,
+        height: 350,
+        zoom: {
+            enabled: false
+        },
+    },
+    dataLabels: {
+        enabled: false
+    },
+    markers: {
+        size: 0
+    },
+    fill: {
+        type: 'gradient',
+        gradient: {
+            shadeIntensity: 1,
+            inverseColors: false,
+            opacityFrom: 0.45,
+            opacityTo: 0.05,
+            stops: [20, 100, 100, 100]
+        },
+    },
+    yaxis: {
+        labels: {
+            style: {
+                colors: '#8e8da4',
+            },
+            offsetX: 0,
+            formatter: function(val) {
+                return (val / 1000000).toFixed(2);
+            },
+        },
+        axisBorder: {
+            show: false,
+        },
+        axisTicks: {
+            show: false
+        }
+    },
+    xaxis: {
+        type: 'datetime',
+        tickAmount: 8,
+        labels: {
+            rotate: -15,
+            rotateAlways: true,
+            formatter: function(val, timestamp) {
+                return moment(new Date(timestamp)).format("DD MMM YYYY")
+            }
+        }
+    },
+    title: {
+        text: 'Irregular Data in Time Series with Discontinuities',
+        align: 'left',
+        offsetX: 14
+    },
+    tooltip: {
+        shared: true
+    },
+    legend: {
+        position: 'top',
+        horizontalAlign: 'right',
+        offsetX: -10
+    }
+};
+
+var chart = new ApexCharts(document.querySelector("#chart"), options);
+chart.render();
+
+        });
+    </script>
+</body>
+</html>

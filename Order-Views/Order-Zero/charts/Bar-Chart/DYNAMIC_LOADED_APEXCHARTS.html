@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Loaded Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <style>
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .chart {
+            margin: 20px 0;
+        }
+        .active {
+            display: block;
+        }
+        .chart-quarter-activated {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div id="chart-year" class="chart"></div>
+        <div id="chart-quarter" class="chart"></div>
+    </div>
+
+    <script>
+        function makeData() {
+            return [
+                { x: '2011', y: 45 },
+                { x: '2012', y: 76 },
+                { x: '2013', y: 34 },
+                { x: '2014', y: 89 },
+                { x: '2015', y: 49 },
+                { x: '2016', y: 72 },
+                { x: '2017', y: 36 },
+                { x: '2018', y: 91 }
+            ];
+        }
+
+        function updateQuarterChart(chart, quarterChart) {
+            const yearData = {
+                '2011': [13, 23, 20, 8],
+                '2012': [20, 29, 37, 15],
+                '2013': [10, 35, 21, 14],
+                '2014': [24, 30, 40, 25],
+                '2015': [32, 22, 31, 19],
+                '2016': [22, 28, 29, 35],
+                '2017': [25, 32, 27, 28],
+                '2018': [18, 30, 36, 45]
+            };
+
+            const selectedYear = chart.w.globals.labels[chart.w.globals.selectedDataPoints[0]];
+            quarterChart.updateSeries([{
+                data: yearData[selectedYear] || []
+            }]);
+        }
+
+        const colors = ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0', '#546E7A', '#26a69a', '#D10CE8'];
+
+        const optionsYear = {
+            series: [{
+                data: makeData()
+            }],
+            chart: {
+                id: 'barYear',
+                height: 400,
+                width: '100%',
+                type: 'bar',
+                events: {
+                    dataPointSelection: function (e, chart, opts) {
+                        const quarterChartEl = document.querySelector("#chart-quarter");
+                        const yearChartEl = document.querySelector("#chart-year");
+
+                        if (opts.selectedDataPoints[0].length === 1) {
+                            if (quarterChartEl.classList.contains("active")) {
+                                updateQuarterChart(chart, chartQuarter);
+                            } else {
+                                yearChartEl.classList.add("chart-quarter-activated");
+                                quarterChartEl.classList.add("active");
+                                updateQuarterChart(chart, chartQuarter);
+                            }
+                        } else {
+                            updateQuarterChart(chart, chartQuarter);
+                        }
+
+                        if (opts.selectedDataPoints[0].length === 0) {
+                            yearChartEl.classList.remove("chart-quarter-activated");
+                            quarterChartEl.classList.remove("active");
+                        }
+                    },
+                    updated: function (chart) {
+                        updateQuarterChart(chart, chartQuarter);
+                    }
+                }
+            },
+            plotOptions: {
+                bar: {
+                    distributed: true,
+                    horizontal: true,
+                    barHeight: '75%',
+                    dataLabels: {
+                        position: 'bottom'
+                    }
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                textAnchor: 'start',
+                style: {
+                    colors: ['#fff']
+                },
+                formatter: function (val, opt) {
+                    return opt.w.globals.labels[opt.dataPointIndex];
+                },
+                offsetX: 0,
+                dropShadow: {
+                    enabled: true
+                }
+            },
+            colors: colors,
+            states: {
+                normal: {
+                    filter: {
+                        type: 'desaturate'
+                    }
+                },
+                active: {
+                    allowMultipleDataPointsSelection: true,
+                    filter: {
+                        type: 'darken',
+                        value: 1
+                    }
+                }
+            },
+            tooltip: {
+                x: {
+                    show: false
+                },
+                y: {
+                    title: {
+                        formatter: function (val, opts) {
+                            return opts.w.globals.labels[opts.dataPointIndex];
+                        }
+                    }
+                }
+            },
+            title: {
+                text: 'Yearly Results',
+                offsetX: 15
+            },
+            subtitle: {
+                text: '(Click on bar to see details)',
+                offsetX: 15
+            },
+            yaxis: {
+                labels: {
+                    show: false
+                }
+            }
+        };
+
+        const chartYear = new ApexCharts(document.querySelector("#chart-year"), optionsYear);
+        chartYear.render();
+
+        const optionsQuarter = {
+            series: [{
+                data: []
+            }],
+            chart: {
+                id: 'barQuarter',
+                height: 400,
+                width: '100%',
+                type: 'bar',
+                stacked: true
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '50%',
+                    horizontal: false
+                }
+            },
+            legend: {
+                show: false
+            },
+            grid: {
+                yaxis: {
+                    lines: {
+                        show: false,
+                    }
+                },
+                xaxis: {
+                    lines: {
+                        show: true,
+                    }
+                }
+            },
+            yaxis: {
+                labels: {
+                    show: false
+                }
+            },
+            title: {
+                text: 'Quarterly Results',
+                offsetX: 10
+            },
+            tooltip: {
+                x: {
+                    formatter: function (val, opts) {
+                        return opts.w.globals.seriesNames[opts.seriesIndex];
+                    }
+                },
+                y: {
+                    title: {
+                        formatter: function (val, opts) {
+                            return opts.w.globals.labels[opts.dataPointIndex];
+                        }
+                    }
+                }
+            }
+        };
+
+        const chartQuarter = new ApexCharts(document.querySelector("#chart-quarter"), optionsQuarter);
+        chartQuarter.render();
+    </script>
+</body>
+</html>

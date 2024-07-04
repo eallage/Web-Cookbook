@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Diagram</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <style>
+        /* Custom CSS for the activity diagram */
+        .activity {
+            position: relative;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .activity-node {
+            position: relative;
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            background-color: #3498db;
+            color: #ffffff;
+            border-radius: 5px;
+            margin: 0 20px;
+        }
+        .activity-arrow-container {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .activity-arrow {
+            position: absolute;
+            top: 50%;
+            width: 100px;
+            height: 2px;
+            background-color: #3498db;
+        }
+        .activity-arrow::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            border: 10px solid transparent;
+            border-left-color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="activity">
+            <div class="activity-node">Start</div>
+        </div>
+        <div class="activity-arrow-container">
+            <div class="activity-arrow"></div>
+        </div>
+        <div class="activity">
+            <div class="activity-node">Activity 1</div>
+        </div>
+        <div class="activity-arrow-container">
+            <div class="activity-arrow"></div>
+        </div>
+        <div class="activity">
+            <div class="activity-node">Activity 2</div>
+        </div>
+        <div class="activity-arrow-container">
+            <div class="activity-arrow"></div>
+        </div>
+        <div class="activity">
+            <div class="activity-node">End</div>
+        </div>
+    </div>
+</body>
+</html>

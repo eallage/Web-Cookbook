@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacked Area Chart using ApexCharts</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div id="chart"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Sample function to generate day-wise time series data
+            function generateDayWiseTimeSeries(baseval, count, yrange) {
+                var i = 0;
+                var series = [];
+                while (i < count) {
+                    var x = baseval;
+                    var y = Math.floor(Math.random() * (yrange.max - yrange.min + 1)) + yrange.min;
+                    series.push([x, y]);
+                    baseval += 86400000; // adding 1 day in milliseconds
+                    i++;
+                }
+                return series;
+            }
+
+            // Options for the stacked area chart
+            var options = {
+                series: [
+                    {
+                        name: 'South',
+                        data: generateDayWiseTimeSeries(new Date('11 Feb 2017 GMT').getTime(), 20, { min: 10, max: 60 })
+                    },
+                    {
+                        name: 'North',
+                        data: generateDayWiseTimeSeries(new Date('11 Feb 2017 GMT').getTime(), 20, { min: 10, max: 20 })
+                    },
+                    {
+                        name: 'Central',
+                        data: generateDayWiseTimeSeries(new Date('11 Feb 2017 GMT').getTime(), 20, { min: 10, max: 15 })
+                    }
+                ],
+                chart: {
+                    type: 'area',
+                    height: 350,
+                    stacked: true,
+                    events: {
+                        selection: function (chart, e) {
+                            console.log(new Date(e.xaxis.min));
+                        }
+                    },
+                },
+                colors: ['#008FFB', '#00E396', '#CED4DC'],
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'monotoneCubic'
+                },
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        opacityFrom: 0.6,
+                        opacityTo: 0.8,
+                    }
+                },
+                legend: {
+                    position: 'top',
+                    horizontalAlign: 'left'
+                },
+                xaxis: {
+                    type: 'datetime'
+                },
+            };
+
+            // Render the stacked area chart
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        });
+    </script>
+</body>
+</html>

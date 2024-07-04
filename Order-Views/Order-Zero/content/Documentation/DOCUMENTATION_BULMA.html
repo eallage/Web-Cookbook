@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulma Documentation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <style>
+        :root {
+            --background-color: #ffffff;
+            --text-color: #363636;
+            --header-background: #f2f2f2;
+            --header-text: #000000;
+            --link-color: #3273dc;
+        }
+
+        [data-theme="dark"] {
+            --background-color: #1a1a1a;
+            --text-color: #e0e0e0;
+            --header-background: #333333;
+            --header-text: #ffffff;
+            --link-color: #4a90e2;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        .navbar, .hero, .footer {
+            background-color: var(--header-background);
+            color: var(--header-text);
+        }
+
+        a {
+            color: var(--link-color);
+        }
+
+        .content {
+            margin-top: 20px;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            background-color: var(--link-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">
+                <strong>Bulma Docs</strong>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <a class="navbar-item" href="#">
+                    Home
+                </a>
+                <a class="navbar-item" href="#">
+                    Overview
+                </a>
+                <a class="navbar-item" href="#">
+                    Elements
+                </a>
+                <a class="navbar-item" href="#">
+                    Components
+                </a>
+                <a class="navbar-item" href="#">
+                    Layout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Bulma Documentation
+                </h1>
+                <h2 class="subtitle">
+                    Your guide to using Bulma, a modern CSS framework.
+                </h2>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <button class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</button>
+            <div class="columns">
+                <div class="column is-one-quarter">
+                    <aside class="menu">
+                        <p class="menu-label">
+                            General
+                        </p>
+                        <ul class="menu-list">
+                            <li><a href="#">Introduction</a></li>
+                            <li><a href="#">Getting Started</a></li>
+                        </ul>
+                        <p class="menu-label">
+                            Elements
+                        </p>
+                        <ul class="menu-list">
+                            <li><a href="#">Box</a></li>
+                            <li><a href="#">Button</a></li>
+                            <li><a href="#">Content</a></li>
+                        </ul>
+                        <p class="menu-label">
+                            Components
+                        </p>
+                        <ul class="menu-list">
+                            <li><a href="#">Card</a></li>
+                            <li><a href="#">Modal</a></li>
+                            <li><a href="#">Navbar</a></li>
+                        </ul>
+                    </aside>
+                </div>
+                <div class="column">
+                    <div class="content">
+                        <h2>Introduction</h2>
+                        <p>Welcome to the Bulma documentation. This guide will help you get started with Bulma and provide detailed information on its features and components.</p>
+                        
+                        <h2>Getting Started</h2>
+                        <p>To start using Bulma, you can either include it via CDN or download it and include it in your project.</p>
+                        <pre>
+                            <code>
+<!-- Include via CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+                            </code>
+                        </pre>
+                        
+                        <h2>Elements</h2>
+                        <p>Bulma provides a variety of elements to help you build your web projects. Below are some of the key elements:</p>
+                        
+                        <h3>Box</h3>
+                        <p>The <code>.box</code> element is a simple container with a shadow, a border, and some padding.</p>
+                        <div class="box">
+                            This is a box.
+                        </div>
+                        
+                        <h3>Button</h3>
+                        <p>The <code>.button</code> element can be used to create buttons. You can use different classes to style them.</p>
+                        <button class="button is-primary">Primary Button</button>
+                        <button class="button is-link">Link Button</button>
+                        
+                        <h3>Content</h3>
+                        <p>The <code>.content</code> element provides consistent typography.</p>
+                        <div class="content">
+                            <p>This is some content styled using Bulma's content class. It includes styles for paragraphs, headings, lists, and more.</p>
+                            <ul>
+                                <li>Item 1</li>
+                                <li>Item 2</li>
+                                <li>Item 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>Bulma</strong> by <a href="https://jgthms.com">Jeremy Thomas</a>. The source code is licensed <a href="http://opensource.org/licenses/mit-license.php">MIT</a>.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute("data-theme");
+            const newTheme = currentTheme === "light" ? "dark" : "light";
+            document.documentElement.setAttribute("data-theme", newTheme);
+        }
+    </script>
+</body>
+</html>

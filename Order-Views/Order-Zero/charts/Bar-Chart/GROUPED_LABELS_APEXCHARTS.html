@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grouped Labels with Markers on X-axis from ApexCharts</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</head>
+<body>
+    <div id="chart"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var salesData = [
+                { x: '2019/01/01', y: 400 },
+                { x: '2019/04/01', y: 430 },
+                { x: '2019/07/01', y: 448 },
+                { x: '2019/10/01', y: 470 },
+                { x: '2020/01/01', y: 540 },
+                { x: '2020/04/01', y: 580 },
+                { x: '2020/07/01', y: 690 },
+                { x: '2020/10/01', y: 690 }
+            ];
+
+            // Format x-axis labels as quarters
+            var formattedData = salesData.map(function(item) {
+                var date = new Date(item.x);
+                var quarter = "Q" + Math.ceil((date.getMonth() + 1) / 3) + " " + date.getFullYear();
+                return {
+                    x: quarter,
+                    y: item.y
+                };
+            });
+
+            var options = {
+                series: [{
+                    name: "sales",
+                    data: formattedData
+                }],
+                chart: {
+                    type: 'bar',
+                    height: 380
+                },
+                xaxis: {
+                    type: 'category',
+                },
+                title: {
+                    text: 'Grouped Labels on the X-axis',
+                },
+                tooltip: {
+                    x: {
+                        formatter: function(val) {
+                            return val;
+                        }  
+                    }
+                },
+            };
+
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
+        });
+    </script>
+</body>
+</html>

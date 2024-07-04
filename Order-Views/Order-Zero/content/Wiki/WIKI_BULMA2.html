@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wiki Page with Sidebar</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+    }
+
+    .hero {
+      background-color: #3273dc;
+      color: #ffffff;
+      padding: 3rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+    }
+
+    .section {
+      padding: 2rem 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .navbar {
+      background-color: #f2f2f2;
+      border-bottom: 1px solid #dddddd;
+    }
+
+    .navbar-brand .navbar-item {
+      font-weight: bold;
+      font-size: 1.5rem;
+      color: #3273dc;
+    }
+
+    .sidebar-left {
+      background-color: #f2f2f2;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-right: 1rem;
+    }
+
+    .sidebar-right {
+      background-color: #f2f2f2;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .sidebar-title {
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar-link {
+      color: #3273dc;
+      text-decoration: none;
+    }
+
+    .content {
+      line-height: 1.6;
+    }
+
+    .content h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .content p {
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="#">
+          Wiki Page with Sidebar
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="container">
+      <h1 class="title">Welcome to the Wiki Page</h1>
+      <p class="subtitle">Explore and Learn</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="columns">
+      <div class="column is-3">
+        <aside class="menu sidebar-left">
+          <p class="menu-label sidebar-title">
+            Navigation
+          </p>
+          <ul class="menu-list">
+            <li><a href="#section1" class="sidebar-link">Section 1</a></li>
+            <li><a href="#section2" class="sidebar-link">Section 2</a></li>
+            <li><a href="#section3" class="sidebar-link">Section 3</a></li>
+          </ul>
+        </aside>
+      </div>
+      <div class="column is-6">
+        <div id="section1" class="section">
+          <h2>Section 1</h2>
+          <p>This is the content of Section 1.</p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec faucibus volutpat mauris, sed ultricies arcu interdum vitae. Aliquam erat volutpat. Nulla id nisi eget neque tincidunt posuere.</p>
+        </div>
+        <div id="section2" class="section">
+          <h2>Section 2</h2>
+          <p>This is the content of Section 2.</p>
+          <p>Integer scelerisque, purus vel vestibulum condimentum, velit dui sodales risus, ut blandit odio libero eget lectus. Nullam sit amet velit nec velit eleifend pharetra. Curabitur bibendum tincidunt magna, sit amet malesuada purus lacinia non. Donec ut ipsum non nisi efficitur suscipit vel vel dui.</p>
+        </div>
+        <div id="section3" class="section">
+          <h2>Section 3</h2>
+          <p>This is the content of Section 3.</p>
+          <p>Nam maximus feugiat ex, sit amet gravida quam mattis at. Nullam nec venenatis mi. Fusce sollicitudin, leo non congue sodales, augue orci luctus felis, vel luctus velit quam vel lorem. Etiam aliquam ligula non lectus ultrices consequat.</p>
+        </div>
+      </div>
+      <div class="column is-3">
+        <aside class="menu sidebar-right">
+          <p class="menu-label sidebar-title">
+            Quick Links
+          </p>
+          <ul class="menu-list">
+            <li><a href="#" class="sidebar-link">Link 1</a></li>
+            <li><a href="#" class="sidebar-link">Link 2</a></li>
+            <li><a href="#" class="sidebar-link">Link 3</a></li>
+          </ul>
+
+          <p class="menu-label sidebar-title">
+            Tools
+          </p>
+          <ul class="menu-list">
+            <li><a href="#" class="sidebar-link">Photos</a></li>
+            <li><a href="#" class="sidebar-link">Cards</a></li>
+            <li><a href="#" class="sidebar-link">Tables</a></li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
